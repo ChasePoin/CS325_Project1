@@ -1,4 +1,4 @@
-import functions as p
+import project1 as p
 
 def main():
         fileName = input("Enter the name of the file you want to use: ")
