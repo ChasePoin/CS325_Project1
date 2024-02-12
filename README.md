@@ -8,3 +8,5 @@ This is a web scraper that was made for a project in class. It is programmed in 
 -It is VERY important that you are in the same working directory (your cmd is in the folder containing your text file) when you run the program. The path is NOT specified so it will search the current directory for the name of the file you passed into the function.
 
 -The function will create text files named "ArticleX.txt," with X being based on the order of the URLs in the text file you passed in; for example, the first article in the list will be named "Article1.txt," while the fifth article will be named "Article5.txt." These created article files will ALSO be output into the current working directory (folder your cmd is working in).
+
+-Five examples of how the files are output are also present in the repo; these use the URLs present in the "news_urls.txt" file, so you are able to compare how files are output to the article the text comes from.
