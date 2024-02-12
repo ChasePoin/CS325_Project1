@@ -13,7 +13,7 @@ def scrape(fileToOpen: str) -> None:
 
         html = requests.get(url, headers={"Connection": "keep-alive", "User-agent": "Mozilla/5.0"})
         soup = BeautifulSoup(html.content, "lxml")
-        # requests sends a request for the data from the web server
+        # requests sends a request for thecd data from the web server
         # BeautifulSoup parses and allows the particular data we want to be pulled easily
 
         fileName = "Article" + str(articleNumber) + ".txt"
@@ -49,7 +49,7 @@ def scrape(fileToOpen: str) -> None:
 
 
 
-
+## example main of how to use the function
 # def main():
 #         scrape("news_urls.txt")
 
