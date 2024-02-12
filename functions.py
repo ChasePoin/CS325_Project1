@@ -13,7 +13,7 @@ def scrape(fileToOpen: str) -> None:
     # open URL file
 
     articleNumber = 1
-    # article number will be used for the outputted files' names
+    # article number will be used for the output files' names
     for url in file:
         # loop in order to repeat process for each url present in the file
         try:
@@ -29,18 +29,31 @@ def scrape(fileToOpen: str) -> None:
         fileName = "Article" + str(articleNumber) + ".txt"
         fileToOutput = open(fileName, "x")
         # creates file that the article text and title are going to be written to
+        try:
+            titleText = getTitle(soup)
+            # calls getTitle() to, well, get the title
+        except:
+            print(f"Failed to get title for article {articleNumber}.")
 
-        titleText = getTitle(soup)
-        # calls getTitle() to, well, get the title
+        try:
+            fileToOutput.write(titleText)
+            # writes the beautiful title to the file
+        except:
+            print(f"Failed to write title for article {articleNumber}.")
 
-        fileToOutput.write(titleText)
-        # writes the beautiful title to the file
+        try:
+            body = soup.find_all('p')
+            # gets actual article text from <p> tags, find_all() puts it into an array
+        except:
+            print(f"Failed to get article data for article {articleNumber}.")
 
-        body = soup.find_all('p')
-        # gets actual article text from <p> tags, find_all() puts it into an array
+        try:
+            writeArticle(body, fileToOutput)
+            # passes the newly created array in as well as the file to write to, and writes the article to the file
+        except:
+            print(f"Failed to write the article data to the file for article {articleNumber}")
 
-        writeArticle(body, fileToOutput)
-        # passes the newly created array in as well as the file to write to, and writes the article to the file
+        # the try except blocks do not fail the program but instead just fail on a per article basis
 
         articleNumber = articleNumber + 1
         # increment for next file name
