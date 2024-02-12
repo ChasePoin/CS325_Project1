@@ -20,7 +20,6 @@ def scrape(fileToOpen: str) -> None:
             html = requests.get(url, headers={"Connection": "keep-alive", "User-agent": "Mozilla/5.0"})
         except:
             print("Failure to request web data for article " + str(articleNumber) + ".")
-            exit()
         
         soup = BeautifulSoup(html.content, "lxml")
         # requests sends a request for the data from the web server
