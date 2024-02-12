@@ -57,7 +57,7 @@ def getTitle(soup) -> str:
     return titleText
 
 # loops through newly created array, makes it pretty, encoding it into ascii and decoding it back to a string in order to remove unicode
-# does not return anything and instead writes the info to the file
+# does not return anything and instead writes each part of the array to the file
 def getArticle(body, fileToOutput) -> None:
     count = 0
     for partsOfArticle in body:
@@ -65,18 +65,6 @@ def getArticle(body, fileToOutput) -> None:
         if count == 1:        
             encodeParts = partsOfArticle.text.encode('ascii', 'ignore')
             # this gets rid of the "question marks" by encoding the file in ascii characters
-            fileToOutput.write(str(encodeParts.decode()) + "\n")
+            fileToOutput.write((encodeParts.decode()) + "\n")
             # writes the article data to the file and decodes it in order to make it a string
         count = 1
-        
-
-
-
-# example main of how to use the function
-def main():
-        fileName = input("Enter the name of the file you want to use: ")
-        scrape(fileName)
-
-
-if __name__ == "__main__":
-    main()
