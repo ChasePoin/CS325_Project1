@@ -49,7 +49,7 @@ def scrape(fileToOpen: str) -> None:
 
 
 
-## example main of how to use the function
+# # example main of how to use the function
 # def main():
 #         scrape("news_urls.txt")
 
