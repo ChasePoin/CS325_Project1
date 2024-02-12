@@ -14,12 +14,21 @@ This is a web scraper that was made for a project in class. It is programmed in 
 ### Step by Step:
 This assumes you have an python environment management system such as conda (recommended, as this is what was used to test) and visual studio code installed. There are plenty of guides on the internet on how to install these.
     1. Download the zip from this repo by pressing the green code button and then "Download zip." Unpack this zip to your folder of choice.
+
     2. Open your cmd and navigate the working directory to the folder you unpacked the zip to. (Example: cd .. takes you back a directory and cd "folder" will take you to the folder directory. Just look at your file explorer and move your cmd directory in accordance with each folder you see.)
+
     3. This is where you will create your python environment; you will create this new environment based off the requirements.yml file. To do this in conda, type "conda env create -f requirements.yml." By default the name of this environment will be project1. If you want the environment to be a different name edit the "name" (first line) of the requirements.yml file. If you are using a different environment manager find the command to make a new environment based off a yml/yaml file.
+
     4. Open the folder you extracted your zip file to in visual studio code.
+
     5. Now press ctrl + shift + p to open the command palette and type in "python: select interpreter." Select the option with the corresponding name; a list will appear. Choose the option with the name of the environment you just created.
+
     6. Take the URLs you want to scrape and either make a new text file and order the URLs as you want (look at news_urls.txt for formatting) or just replace the URLs in news_urls.txt with the ones you want to scrape.
+
     7. Make sure your terminal in VSC is in the folder with your text file.
+
     8. Uncomment the main by highlighting it and pressing ctrl + /.
+
     9. If you made a new file, replace "news_urls.txt" with "your_file_name".
+
     10. Run the program. Your newly output files should appear in the same folder.
