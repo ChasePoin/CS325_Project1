@@ -39,7 +39,7 @@ def scrape(fileToOpen: str) -> None:
         body = soup.find_all('p')
         # gets actual article text from <p> tags, find_all() puts it into an array
 
-        getArticle(body, fileToOutput)
+        writeArticle(body, fileToOutput)
         # passes the newly created array in as well as the file to write to, and writes the article to the file
 
         articleNumber = articleNumber + 1
@@ -58,7 +58,7 @@ def getTitle(soup) -> str:
 
 # loops through newly created array, makes it pretty, encoding it into ascii and decoding it back to a string in order to remove unicode
 # does not return anything and instead writes each part of the array to the file
-def getArticle(body, fileToOutput) -> None:
+def writeArticle(body, fileToOutput) -> None:
     count = 0
     for partsOfArticle in body:
     # "count" is present in order to not print out the copyright at the beginning 
