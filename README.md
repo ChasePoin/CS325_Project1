@@ -2,9 +2,9 @@
 ## Details:
 This is a web scraper that was made for a project in class. It is programmed in Python 3.9.18 and uses BeautifulSoup and Requests packages in order to get web data and organize it into text files. The python environment (containing these packages) is attached in a file called "requirements.yml."
 
--The interface.py file is how you will run the program. It will ask for an input (the name of the file containing the URLs) and then scrape every single URL in that file. The actual functions are in project1.py, which is imported to this file.
+-The interface.py file is how you will run the program. It will ask for an input (the name of the file containing the URLs) and then scrape every single URL in that file. The actual functions are in functions.py, which is imported to interface.py.
 
--The project1.py file contains three functions that act as the web scraper. The scrape function takes a TEXT file name containing a list of AP News URLs (how ever many you want, could be 1 URL, could be 50). ex// scrape("news_urls.txt"); this will open news_urls.txt and use the URLs present in the file.
+-The functions.py file contains three functions that act as the web scraper. The scrape function takes a TEXT file name containing a list of AP News URLs (how ever many you want, could be 1 URL, could be 50). ex// scrape("news_urls.txt"); this will open news_urls.txt and use the URLs present in the file.
 
 -The "news_urls.txt" file is an example file of how the URLs should be organized for the program to use them correctly. The file is in the repository to provide an example to use. You do not have to actually use the provided text file.
 
