@@ -4,14 +4,22 @@ import requests
 ### IMPORTANT: Make sure you are in the same working directory as your file containing the URLs you want to scrape.
 ## The newly created text files will be output to the same working directory as the one you are in.
 def scrape(fileToOpen: str) -> None:
-    "Pass the name of the file containing the URLs of the AP News articles you want to scrape."       
-    file = open(fileToOpen, "r")
+    "Pass the name of the file containing the URLs of the AP News articles you want to scrape."    
+    try:   
+        file = open(fileToOpen, "r")
+    except:
+        return "Failure to open file containing URLs."
+    # open URL file
+
     articleNumber = 1
     # article number will be used for the outputted files' names
     for url in file:
         # loop in order to repeat process for each url present in the file
-
-        html = requests.get(url, headers={"Connection": "keep-alive", "User-agent": "Mozilla/5.0"})
+        try:
+            html = requests.get(url, headers={"Connection": "keep-alive", "User-agent": "Mozilla/5.0"})
+        except:
+            return "Failure to request web data for article " + str(articleNumber) + "."
+        
         soup = BeautifulSoup(html.content, "lxml")
         # requests sends a request for thecd data from the web server
         # BeautifulSoup parses and allows the particular data we want to be pulled easily
@@ -51,7 +59,7 @@ def scrape(fileToOpen: str) -> None:
 
 # # example main of how to use the function
 # def main():
-#         fileName = input("Enter the name of the file you wnat to use: ")
+#         fileName = input("Enter the name of the file you want to use: ")
 #         scrape(fileName)
 
 

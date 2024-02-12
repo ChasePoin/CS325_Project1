@@ -31,6 +31,6 @@ This assumes you have an python environment management system such as conda (rec
 
 8. Uncomment the main by highlighting it and pressing ctrl + /.
 
-9. If you made a new file, replace "news_urls.txt" with "your_file_name".
+9. Type the name of the file containing your URLs.
 
 10. Run the program. Your newly output files should appear in the same folder.
