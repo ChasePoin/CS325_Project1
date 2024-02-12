@@ -51,7 +51,8 @@ def scrape(fileToOpen: str) -> None:
 
 # # example main of how to use the function
 # def main():
-#         scrape("news_urls.txt")
+#         fileName = input("Enter the name of the file you wnat to use: ")
+#         scrape(fileName)
 
 
 # if __name__ == "__main__":
