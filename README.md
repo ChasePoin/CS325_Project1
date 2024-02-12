@@ -1,4 +1,5 @@
 # AP News Web Scraper
+## Details:
 This is a web scraper that was made for a project in class. It is programmed in Python 3.9.18 and uses BeautifulSoup and Requests packages in order to get web data and organize it into text files. The python environment (containing these packages) is attached in a file called "requirements.yml."
 
 -The project1.py file contains a single function that acts as the web scraper. The function takes a TEXT file name containing a list of AP News URLs (how ever many you want, could be 1 URL, could be 50). ex// scrape("news_urls.txt"); this will open news_urls.txt and use the URLs present in the file.
@@ -11,7 +12,7 @@ This is a web scraper that was made for a project in class. It is programmed in 
 
 -Five examples of how the files are output are also present in the repo; these use the URLs present in the "news_urls.txt" file, so you are able to compare the files to where the files' text comes from.
 
-### Step by Step:
+### Step by Step Walkthrough:
 This assumes you have an python environment management system such as conda (recommended, as this is what was used to test) and visual studio code installed. There are plenty of guides on the internet on how to install these.
 
     1. Download the zip from this repo by pressing the green code button and then "Download zip." Unpack this zip to your folder of choice.
