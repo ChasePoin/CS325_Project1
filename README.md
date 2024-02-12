@@ -2,13 +2,15 @@
 ## Details:
 This is a web scraper that was made for a project in class. It is programmed in Python 3.9.18 and uses BeautifulSoup and Requests packages in order to get web data and organize it into text files. The python environment (containing these packages) is attached in a file called "requirements.yml."
 
--The project1.py file contains a single function that acts as the web scraper. The function takes a TEXT file name containing a list of AP News URLs (how ever many you want, could be 1 URL, could be 50). ex// scrape("news_urls.txt"); this will open news_urls.txt and use the URLs present in the file.
+-The interface.py file is how you will run the program. It will ask for an input (the name of the file containing the URLs) and then scrape every single URL in that file. The actual functions are in project1.py, which is imported to this file.
+
+-The project1.py file contains three functions that act as the web scraper. The scrape function takes a TEXT file name containing a list of AP News URLs (how ever many you want, could be 1 URL, could be 50). ex// scrape("news_urls.txt"); this will open news_urls.txt and use the URLs present in the file.
 
 -The "news_urls.txt" file is an example file of how the URLs should be organized for the program to use them correctly. The file is in the repository to provide an example to use. You do not have to actually use the provided text file.
 
 -It is VERY important that you are in the same working directory (your cmd is in the folder containing your text file) when you run the program. The path is NOT specified so it will search the current directory for the name of the file you passed into the function.
 
--The function will create text files named "ArticleX.txt," with X being based on the order of the URLs in the text file you passed in; for example, the first article in the list will be named "Article1.txt," while the fifth article will be named "Article5.txt." These created article files will ALSO be output into the current working directory (folder your cmd is working in).
+-The program will create text files named "ArticleX.txt," with X being based on the order of the URLs in the text file you passed in; for example, the first article in the list will be named "Article1.txt," while the fifth article will be named "Article5.txt." These created article files will ALSO be output into the current working directory (folder your cmd is working in).
 
 -Five examples of how the files are output are also present in the repo; these use the URLs present in the "news_urls.txt" file, so you are able to compare the files to where the files' text comes from.
 
@@ -29,8 +31,8 @@ This assumes you have an python environment management system such as conda (rec
 
 7. Make sure your terminal in VSC is in the folder with your text file.
 
-8. Uncomment the main by highlighting it and pressing ctrl + /.
+8. Run interface.py.
 
 9. Type the name of the file containing your URLs.
 
-10. Run the program. Your newly output files should appear in the same folder.
+10. Your newly output files containg the article data should appear in the same folder.
