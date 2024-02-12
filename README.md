@@ -13,6 +13,7 @@ This is a web scraper that was made for a project in class. It is programmed in 
 
 ### Step by Step:
 This assumes you have an python environment management system such as conda (recommended, as this is what was used to test) and visual studio code installed. There are plenty of guides on the internet on how to install these.
+
     1. Download the zip from this repo by pressing the green code button and then "Download zip." Unpack this zip to your folder of choice.
 
     2. Open your cmd and navigate the working directory to the folder you unpacked the zip to. (Example: cd .. takes you back a directory and cd "folder" will take you to the folder directory. Just look at your file explorer and move your cmd directory in accordance with each folder you see.)
