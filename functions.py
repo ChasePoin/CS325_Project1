@@ -1,5 +1,6 @@
 from bs4 import BeautifulSoup
 import requests
+from os.path import exists
 
 ### IMPORTANT: Make sure you are in the same working directory as your file containing the URLs you want to scrape.
 ## The newly created text files will be output to the same working directory as the one you are in.
@@ -33,35 +34,39 @@ def scrape(fileToOpen: str) -> None:
 
         fileName = titleText + ".txt"
         fileName = fileName.replace(" ", "_")
-        fileToOutput = open(fileName, "x")
-        formattedTitle = "Title: " + titleText + "\n"
-        # creates file that the article text and title are going to be written to using the article's title as name
+        if (not exists(fileName)):
+            fileToOutput = open(fileName, "x")
+            formattedTitle = "Title: " + titleText + "\n"
+            # creates file that the article text and title are going to be written to using the article's title as name
 
-        try:
-            fileToOutput.write(formattedTitle)
-            # writes the beautiful title to the file
-        except:
-            print(f"Failed to write title for article {articleNumber}.")
+            try:
+                fileToOutput.write(formattedTitle)
+                # writes the beautiful title to the file
+            except:
+                print(f"Failed to write title for article {articleNumber}.")
 
-        try:
-            body = soup.find_all('p')
-            # gets actual article text from <p> tags, find_all() puts it into an array
-        except:
-            print(f"Failed to get article data for article {articleNumber}.")
+            try:
+                body = soup.find_all('p')
+                # gets actual article text from <p> tags, find_all() puts it into an array
+            except:
+                print(f"Failed to get article data for article {articleNumber}.")
 
-        try:
-            writeArticle(body, fileToOutput)
-            # passes the newly created array in as well as the file to write to, and writes the article to the file
-        except:
-            print(f"Failed to write the article data to the file for article {articleNumber}")
+            try:
+                writeArticle(body, fileToOutput)
+                # passes the newly created array in as well as the file to write to, and writes the article to the file
+            except:
+                print(f"Failed to write the article data to the file for article {articleNumber}")
 
-        # the try except blocks do not fail the program but instead just fail on a per article basis
-
-        articleNumber = articleNumber + 1
-        # increment for next file name
-        fileToOutput.close()
+            # the try except blocks do not fail the program but instead just fail on a per article basis
+            print(f"Article {articleNumber} file created successfully.")
+            articleNumber = articleNumber + 1
+            # increment for next file name
+            fileToOutput.close()
+        else:
+            print(f"Article {articleNumber} file already exists.")
+            articleNumber = articleNumber + 1
     file.close()
-    # close the files
+        # close the files
 
 # gets title from <h1> tags, makes it pretty, encoding it into ascii and decoding it back to a string in order to remove
 # unicode characters from appearing as "question marks," returns the title  
