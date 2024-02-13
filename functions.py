@@ -13,7 +13,7 @@ def scrape(fileToOpen: str) -> None:
     # open URL file
 
     articleNumber = 1
-    # article number will be used for the output files' names
+    # article number will be used for error reporting
     for url in file:
         # loop in order to repeat process for each url present in the file
         try:
@@ -25,17 +25,20 @@ def scrape(fileToOpen: str) -> None:
         # requests sends a request for the data from the web server
         # BeautifulSoup parses and allows the particular data we want to be pulled easily
 
-        fileName = "Article" + str(articleNumber) + ".txt"
-        fileToOutput = open(fileName, "x")
-        # creates file that the article text and title are going to be written to
         try:
             titleText = getTitle(soup)
             # calls getTitle() to, well, get the title
         except:
             print(f"Failed to get title for article {articleNumber}.")
 
+        fileName = titleText + ".txt"
+        fileName = fileName.replace(" ", "_")
+        fileToOutput = open(fileName, "x")
+        formattedTitle = "Title: " + titleText + "\n"
+        # creates file that the article text and title are going to be written to using the article's title as name
+
         try:
-            fileToOutput.write(titleText)
+            fileToOutput.write(formattedTitle)
             # writes the beautiful title to the file
         except:
             print(f"Failed to write title for article {articleNumber}.")
@@ -65,7 +68,7 @@ def scrape(fileToOpen: str) -> None:
 def getTitle(soup) -> str:
     title = soup.find('h1', class_='Page-headline').text
     encodedTitle = title.encode('ascii', 'ignore')
-    titleText = "Title: " + encodedTitle.decode() + "\n"
+    titleText = encodedTitle.decode()
     return titleText
 
 # loops through newly created array, makes it pretty, encoding it into ascii and decoding it back to a string in order to remove unicode
