@@ -1,6 +1,6 @@
 # AP News Web Scraper
 ## Details:
-This is a web scraper that was made for a project in class. It is programmed in Python 3.9.18 and uses BeautifulSoup and Requests packages in order to get web data and organize it into text files. The python environment (containing these packages) is attached in a file called "requirements.yml."
+This is a web scraper for AP News articles that was made for a project in class. It is programmed in Python 3.9.18 and uses BeautifulSoup and Requests packages in order to get web data and organize it into text files. The python environment (containing these packages) is attached in a file called "requirements.yml."
 
 -The interface.py file is how you will run the program. It will ask for an input (the name of the file containing the URLs) and then scrape every single URL in that file. The actual functions are in functions.py, which is imported to interface.py.
 
