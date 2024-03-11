@@ -12,12 +12,12 @@ The scraper was reorganied into two modules and put into classes with superclass
 
 
 ### To use this version of the scraper:
--Follow the steps in the other branch of this repo. This will assure you have succesfully set up a way to run the program.
+-Follow the steps for initialization in the other branch of this repo. This will assure you have succesfully set up a way to run the program.
 
 -Now, download the zip of the branch by clicking the green <> code button.
 
--Navigate your current working directory to the folder you just downloaded.
+-Navigate your current working directory to the folder you just downloaded/ where you put the files.
 
--Run run.py, and enter the name of the file containing your urls. There is one present already in the folder, you can either use that one or create a new one, just make sure it is in the same folder as run.py and that your current working directory is navigated to the new folder, as the file paths are relative to the CWD.
+-The way to run the program has changed. It now uses an argparser. To run the program, make sure your CWD is in the folder containing the URLs, then type in the CMD/terminal "python run.py x" with x being the name of the file containing your URLs to be scraped.
 
--Check the data folders for the raw and processed files.
+-Check the data folders for the raw and processed files; the raw folder will contain the old format, with the title and article body. The processed folder will contain the files with just the article body.

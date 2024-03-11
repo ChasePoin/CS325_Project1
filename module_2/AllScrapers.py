@@ -73,6 +73,7 @@ class APscraper(Scrapers):
             # RAW:
             if (not exists("./Data/raw/" + rawFileName)):
                 # handles writing raw data
+                # RAW == ORIGINAL FORM OF WRITING
                 rawFileToOutput = open("./Data/raw/" + rawFileName, "x")
                 try:
                     self.titleWriter.writeInfo(titleText, rawFileToOutput, articleNumber)
@@ -92,6 +93,8 @@ class APscraper(Scrapers):
 
             # PROCESSED:
             if (not exists("./Data/processed/" + fileName)):
+                # handles writing processed data
+                # PROCESSED == NEW FORM OF WRITING
                 fileToOutput = open("./Data/processed/" + fileName, "x")
 
                 try:
