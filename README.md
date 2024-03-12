@@ -18,6 +18,6 @@ The scraper was reorganied into two modules and put into classes with superclass
 
 -Navigate your current working directory to the folder you just downloaded/ where you put the files.
 
--The way to run the program has changed. It now uses an argparser. To run the program, make sure your CWD is in the folder containing the URLs, then type in the CMD/terminal "python run.py x" with x being the name of the file containing your URLs to be scraped.
+-The way to run the program has changed. It now uses an argparser. To run the program, make sure your CWD is in the folder downloaded from this; all of the folder accesses are relative, so you need to be in the folder containing , then type in the CMD/terminal "python run.py x" with x being the name of the file containing your URLs to be scraped.
 
 -Check the data folders for the raw and processed files; the raw folder will contain the old format, with the title and article body. The processed folder will contain the files with just the article body.
