@@ -1,6 +1,10 @@
-from module_2 import AllScrapers as S
-from module_1 import GettersAndWriters as GW
+from module_2 import ScrapersGettersSetters as SGS
+from module_1 import GrabURLs
 import argparse as ap
+
+
+### IMPORTANT: Make sure you are in the same current working directory as the folder containing the URLs and all of the downloaded files/folders.
+
 
 def argparser():
     parser=ap.ArgumentParser()
@@ -13,9 +17,9 @@ def main():
     # URL getter gets all of the URLs from the file, passes in each individually to the scraper
     fileName = argparser()
     # make objects of scraper and URL getter
-    APscraper = S.APscraper()
-    fileURLGetter = GW.GetURLs()
-    urls = fileURLGetter.getInfo(fileName)
+    APscraper = SGS.APscraper()
+    fileURLGetter = GrabURLs.GetURLSTextFile()
+    urls = fileURLGetter.getURLs(fileName)
     articleNumber = 1
     # this version now passes each URL individually instead of the whole file, so articleNumber is now passed in for error reporting
     for url in urls:

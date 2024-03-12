@@ -1,4 +1,3 @@
-from module_1 import GettersAndWriters as GW
 from bs4 import BeautifulSoup
 from abc import ABC, abstractmethod
 import requests
@@ -14,6 +13,10 @@ from os.path import exists
 # This module also fulfills the single responsibility principle; each scraper has one functionality: to scrape, using the getters and writers created for that scraper;
 # the class should only have one reason to change: to add/remove functionality of the scraper.
 
+# The InfoGetters and InfoWriters also follow these exact principles, allowing for easy implementation of different data grabbers.
+# This allows for easy restructing of scrapers to change in accordance to which data you want to grab from the article. It also allows for different scrapers to have
+# different getters/setters without affecting old ones.
+
 # Using both of these SOLID principles allows for very simple and streamlined implementation of new functionality. 
 # using Liskov allows for multiple scrapers to exist with a superclass dictating that they all function similarly, and using single responsibility allows
 # for these scraper functions to focus on handling errors and calling each getter and writer, allowing for easy implementation of new getters and writers allowing for
@@ -21,6 +24,7 @@ from os.path import exists
 # These principles allow for great amounts of freedom when designing the output of a scraper.
 
 # each scraper's scrape() should only take a raw URL to scrape. scrape() returns nothing, but is responsible for making sure each file is output properly
+# each info getter expects the soup (the beautifulsoup parsed html)
 
 class Scrapers(ABC):
     def __init__(self):
@@ -29,12 +33,22 @@ class Scrapers(ABC):
     def scrape(self, url: str, articleNum: int) -> None:
         pass
 
+class InfoGetters(ABC):
+    @abstractmethod
+    def getInfo(self, soup) -> str:
+        pass
+
+class InfoWriters(ABC):
+    @abstractmethod
+    def writeInfo(self, information, fileToOutput, currentArticle) -> None:
+        pass
+
 class APscraper(Scrapers):
     def __init__(self):
-        self.titleGetter = GW.GetTitle()
-        self.titleWriter = GW.WriteTitle()
-        self.articleGetter = GW.GetArticle()
-        self.articleWriter = GW.WriteArticle()  
+        self.titleGetter = GetTitle()
+        self.titleWriter = WriteTitle()
+        self.articleGetter = GetArticle()
+        self.articleWriter = WriteArticle()  
    
     def scrape(self, url: str, articleNumber: int) -> None:
         "Pass the url wanted to be scraped."    
@@ -108,3 +122,53 @@ class APscraper(Scrapers):
             fileToOutput.close()
         else:
             print(f"PROCESSED Article {articleNumber} file already exists.")
+
+# unused class to write raw html, but it shows how easily new functionality can be added
+# class WriteRawData(InfoWriters):
+#     def writeInfo(self, information, fileToOutput, currentArticle) -> None:
+#         prettySoup = information.prettify()
+#         prettySoup = prettySoup.encode('ascii', 'ignore')
+#         prettySoup = prettySoup.decode()
+#         try:
+#             fileToOutput.write(prettySoup)
+#         except: 
+#             print(f"Failed to write RAW html for article {currentArticle}")        
+
+class GetTitle(InfoGetters):
+    def getInfo(self, soup) -> str:
+        # gets title from <h1> tags, makes it pretty, encoding it into ascii and decoding it back to a string in order to remove
+        # unicode characters from appearing as "question marks," returns the title  
+        title = soup.find('h1', class_='Page-headline').text
+        encodedTitle = title.encode('ascii', 'ignore')
+        titleText = encodedTitle.decode()
+        return titleText
+
+class WriteTitle(InfoWriters):
+    def writeInfo(self, information, fileToOutput, currentArticle) -> None:
+        formattedTitle = "Title: " + information + "\n"
+        # formats the title to write it using unformatted title text (information)
+        try:
+            fileToOutput.write(formattedTitle)
+            # writes the beautiful title to the file
+        except:
+            print(f"Failed to write title for article {currentArticle}.")
+    
+class GetArticle(InfoGetters):
+    def getInfo(self, soup) -> str:
+        # gets actual article text from <p> tags, find_all() puts it into an array
+        body = soup.find_all('p')
+        return body
+
+class WriteArticle(InfoWriters):
+    def writeInfo(self, information, fileToOutput, currentArticle) -> None:
+        # loops through newly created array, makes it pretty, encoding it into ascii and decoding it back to a string in order to remove unicode
+        # does not return anything and instead writes each part of the array to the file
+        count = 0
+        for partsOfArticle in information:
+        # "count" is present in order to not print out the copyright at the beginning 
+            if count == 1:        
+                encodeParts = partsOfArticle.text.encode('ascii', 'ignore')
+                # this gets rid of the "question marks" by encoding the file in ascii characters
+                fileToOutput.write((encodeParts.decode()) + "\n")
+                # writes the article data to the file and decodes it in order to make it a string
+            count = 1
