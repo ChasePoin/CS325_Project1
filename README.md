@@ -16,14 +16,22 @@ The scraper was reorganied into two modules and put into classes with superclass
 
 
 ### To use this version of the scraper:
--Follow the steps for initialization in the other branch of this repo. This will assure you have succesfully set up a way to run the program. This program uses the exact same environment.
+This assumes you have an python environment management system such as conda (recommended, as this is what was used to test) and visual studio code installed. There are plenty of guides on the internet on how to install these.
 
--Now, download the zip of the branch by clicking the green <> code button.
+1. Download the zip from this repo by pressing the green code button and then "Download zip." Unpack this zip to your folder of choice.
 
--Navigate your current working directory to the folder you just downloaded/ where you put the files.
+2. Open your cmd and navigate the working directory to the folder you unpacked the zip to. (Example: cd .. takes you back a directory and cd "folder" will take you to the folder directory. Just look at your file explorer and move your cmd directory in accordance with each folder you see.)
 
--Create a .txt file containing the AP News URLs you want to scrape the information from. Make sure this .txt file is in the same folder as run.py.
+3. This is where you will create your python environment; you will create this new environment based off the requirements.yml file. To do this in conda, type "conda env create -f requirements.yml." By default the name of this environment will be project1. If you want the environment to be a different name edit the "name" (first line) of the requirements.yml file. If you are using a different environment manager find the command to make a new environment based off a yml/yaml file.
 
--The way to run the program has changed. It now uses an argparser. Repeating this because it is super important: to run the program, make sure your CWD is in the folder downloaded from this; all of the folder accesses are relative, so you need to be in the folder downloladed. Then type in the CMD/terminal "python run.py x" with x being the name of the file containing your URLs to be scraped.
+4. Open the folder you extracted your zip file to in visual studio code.
 
--Check the data folders for the raw and processed files; the raw folder will contain the old format, with the title and article body. The processed folder will contain the files with just the article body.
+5. Now press ctrl + shift + p to open the command palette and type in "python: select interpreter." Select the option with the corresponding name; a list will appear. Choose the option with the name of the environment you just created.
+
+6. Take the URLs you want to scrape and either make a new text file and order the URLs as you want (look at news_urls.txt for formatting) or just replace the URLs in news_urls.txt with the ones you want to scrape.
+
+7. Make sure your terminal in VSC is in the folder with your text file. Also make sure none of the files were split up; functions.py, interface.py, and the text file containing your URLs must be present in the same folder.
+
+8. The way to run the program has changed. It now uses an argparser. Repeating this because it is super important: to run the program, make sure your CWD is in the folder downloaded from this; all of the folder accesses are relative, so you need to be in the folder downloladed. Then type in the CMD/terminal "python run.py x" with x being the name of the file containing your URLs to be scraped.
+
+9. Check the data folders for the raw and processed files; the raw folder will contain the old format, with the title and article body. The processed folder will contain the files with just the article body.
