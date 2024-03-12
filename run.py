@@ -1,4 +1,5 @@
 from module_2 import AllScrapers as S
+from module_1 import GettersAndWriters as GW
 import argparse as ap
 
 def argparser():
@@ -9,9 +10,17 @@ def argparser():
     return file
 
 def main():
+    # URL getter gets all of the URLs from the file, passes in each individually to the scraper
     fileName = argparser()
+    # make objects of scraper and URL getter
     APscraper = S.APscraper()
-    APscraper.scrape(fileName)
+    fileURLGetter = GW.GetURLs()
+    urls = fileURLGetter.getInfo(fileName)
+    articleNumber = 1
+    # this version now passes each URL individually instead of the whole file, so articleNumber is now passed in for error reporting
+    for url in urls:
+        APscraper.scrape(url, articleNumber)
+        articleNumber = articleNumber + 1
 
 
 if __name__ == "__main__":

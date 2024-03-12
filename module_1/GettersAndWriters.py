@@ -19,7 +19,7 @@ from os.path import exists
 
 class InfoGetters(ABC):
     @abstractmethod
-    def getInfo(self, soup) -> str:
+    def getInfo(self, information) -> str:
         pass
 
 class InfoWriters(ABC):
@@ -39,10 +39,10 @@ class InfoWriters(ABC):
 #             print(f"Failed to write RAW html for article {currentArticle}")        
 
 class GetTitle(InfoGetters):
-    def getInfo(self, soup) -> str:
+    def getInfo(self, information) -> str:
         # gets title from <h1> tags, makes it pretty, encoding it into ascii and decoding it back to a string in order to remove
         # unicode characters from appearing as "question marks," returns the title  
-        title = soup.find('h1', class_='Page-headline').text
+        title = information.find('h1', class_='Page-headline').text
         encodedTitle = title.encode('ascii', 'ignore')
         titleText = encodedTitle.decode()
         return titleText
@@ -58,9 +58,9 @@ class WriteTitle(InfoWriters):
             print(f"Failed to write title for article {currentArticle}.")
     
 class GetArticle(InfoGetters):
-    def getInfo(self, soup) -> str:
+    def getInfo(self, information) -> str:
         # gets actual article text from <p> tags, find_all() puts it into an array
-        body = soup.find_all('p')
+        body = information.find_all('p')
         return body
 
 class WriteArticle(InfoWriters):
@@ -77,3 +77,13 @@ class WriteArticle(InfoWriters):
                 # writes the article data to the file and decodes it in order to make it a string
             count = 1
 
+class GetURLs(InfoGetters):
+    def getInfo(self, information) -> str:
+        # information is the file to open
+        try:   
+            urls = open(information, "r")
+            return urls
+        except:
+            print("Failure to open file containing URLs.")
+            exit()
+        # open URL file

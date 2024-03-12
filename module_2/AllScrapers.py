@@ -1,4 +1,4 @@
-from module_1 import GettersAndWriters as GetWrite
+from module_1 import GettersAndWriters as GW
 from bs4 import BeautifulSoup
 from abc import ABC, abstractmethod
 import requests
@@ -25,97 +25,83 @@ class Scrapers(ABC):
     def __init__(self):
         pass
     @abstractmethod
-    def scrape(self, fileToOpen: str) -> None:
+    def scrape(self, url: str, articleNum: int) -> None:
         pass
 
 class APscraper(Scrapers):
     def __init__(self):
-        self.titleGetter = GetWrite.GetTitle()
-        self.titleWriter = GetWrite.WriteTitle()
-        self.articleGetter = GetWrite.GetArticle()
-        self.articleWriter = GetWrite.WriteArticle()  
+        self.titleGetter = GW.GetTitle()
+        self.titleWriter = GW.WriteTitle()
+        self.articleGetter = GW.GetArticle()
+        self.articleWriter = GW.WriteArticle()  
    
-    def scrape(self, fileToOpen: str) -> None:
-        "Pass the name of the file containing the URLs of the AP News articles you want to scrape."    
-
-        try:   
-            file = open(fileToOpen, "r")
-        except:
-            print("Failure to open file containing URLs.")
-            exit()
-        # open URL file
-
-        articleNumber = 1
+    def scrape(self, url: str, articleNumber: int) -> None:
+        "Pass the url wanted to be scraped."    
         # article number will be used for error reporting
-        for url in file:
-            # loop in order to repeat process for each url present in the file
+        try:
+            html = requests.get(url, headers={"Connection": "keep-alive", "User-agent": "Mozilla/5.0"})
+        except:
+            print("Failure to request web data for article " + str(articleNumber) + ".")
+        
+        soup = BeautifulSoup(html.content, "lxml")
+        # requests sends a request for the data from the web server
+        # BeautifulSoup parses and allows the particular data we want to be pulled easily
+
+        try:
+            titleText = self.titleGetter.getInfo(soup)
+            # calls getTitle() to, well, get the title
+        except:
+            print(f"Failed to get title for article {articleNumber}.")
+
+        # RAW is original file format, with article title + article body
+        # PROCESSED is new file format, with only the article body
+        rawFileName = titleText + "_RAW.txt"
+        rawFileName = rawFileName.replace(" ", "_")
+        fileName = titleText + ".txt"
+        fileName = fileName.replace(" ", "_")
+        # RAW:
+        if (not exists("./Data/raw/" + rawFileName)):
+            # handles writing raw data
+            # RAW == ORIGINAL FORM OF WRITING
+            rawFileToOutput = open("./Data/raw/" + rawFileName, "x")
             try:
-                html = requests.get(url, headers={"Connection": "keep-alive", "User-agent": "Mozilla/5.0"})
+                self.titleWriter.writeInfo(titleText, rawFileToOutput, articleNumber)
+                # writes the title to the file
             except:
-                print("Failure to request web data for article " + str(articleNumber) + ".")
+                print(f"Failed to write title for article {articleNumber}.")
             
-            soup = BeautifulSoup(html.content, "lxml")
-            # requests sends a request for the data from the web server
-            # BeautifulSoup parses and allows the particular data we want to be pulled easily
+            try:
+                body = self.articleGetter.getInfo(soup)
+            except:
+                print(f"Failed to get Article for RAW, article {articleNumber}")
 
             try:
-                titleText = self.titleGetter.getInfo(soup)
-                # calls getTitle() to, well, get the title
+                self.articleWriter.writeInfo(body, rawFileToOutput, articleNumber)
             except:
-                print(f"Failed to get title for article {articleNumber}.")
+                print(f"Failed to write Article data for RAW, article {articleNumber}")
 
-            # RAW is original file format, with article title + article body
-            # PROCESSED is new file format, with only the article body
-            rawFileName = titleText + "_RAW.txt"
-            rawFileName = rawFileName.replace(" ", "_")
-            fileName = titleText + ".txt"
-            fileName = fileName.replace(" ", "_")
-            # RAW:
-            if (not exists("./Data/raw/" + rawFileName)):
-                # handles writing raw data
-                # RAW == ORIGINAL FORM OF WRITING
-                rawFileToOutput = open("./Data/raw/" + rawFileName, "x")
-                try:
-                    self.titleWriter.writeInfo(titleText, rawFileToOutput, articleNumber)
-                    # writes the title to the file
-                except:
-                    print(f"Failed to write title for article {articleNumber}.")
-                
-                try:
-                    body = self.articleGetter.getInfo(soup)
-                except:
-                    print(f"Failed to get Article for RAW, article {articleNumber}")
+        # PROCESSED:
+        if (not exists("./Data/processed/" + fileName)):
+            # handles writing processed data
+            # PROCESSED == NEW FORM OF WRITING
+            fileToOutput = open("./Data/processed/" + fileName, "x")
 
-                try:
-                    self.articleWriter.writeInfo(body, rawFileToOutput, articleNumber)
-                except:
-                    print(f"Failed to write Article data for RAW, article {articleNumber}")
+            try:
+                body = self.articleGetter.getInfo(soup)
+                # gets actual article text from <p> tags
+            except:
+                print(f"Failed to get article data for article {articleNumber}.")
 
-            # PROCESSED:
-            if (not exists("./Data/processed/" + fileName)):
-                # handles writing processed data
-                # PROCESSED == NEW FORM OF WRITING
-                fileToOutput = open("./Data/processed/" + fileName, "x")
+            try:
+                self.articleWriter.writeInfo(body, fileToOutput, articleNumber)
+                # passes the newly created array in as well as the file to write to, and writes the article to the file
+            except:
+                print(f"Failed to write the article data to the file for article {articleNumber}")
 
-                try:
-                    body = self.articleGetter.getInfo(soup)
-                    # gets actual article text from <p> tags
-                except:
-                    print(f"Failed to get article data for article {articleNumber}.")
-
-                try:
-                    self.articleWriter.writeInfo(body, fileToOutput, articleNumber)
-                    # passes the newly created array in as well as the file to write to, and writes the article to the file
-                except:
-                    print(f"Failed to write the article data to the file for article {articleNumber}")
-
-                # the try except blocks do not fail the program but instead just fail on a per article basis
-                print(f"Article {articleNumber} file created successfully.")
-                articleNumber = articleNumber + 1
-                # increment for next file name
-                fileToOutput.close()
-            else:
-                print(f"Article {articleNumber} file already exists.")
-                articleNumber = articleNumber + 1
-        file.close()
-        # close the files
+            # the try except blocks do not fail the program but instead just fail on a per article basis
+            print(f"Article {articleNumber} file created successfully.")
+            articleNumber = articleNumber + 1
+            # increment for next file name
+            fileToOutput.close()
+        else:
+            print(f"Article {articleNumber} file already exists.")
