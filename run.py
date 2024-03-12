@@ -4,6 +4,7 @@ import argparse as ap
 
 
 ### IMPORTANT: Make sure you are in the same current working directory as the folder containing the URLs and all of the downloaded files/folders.
+## module 1 imports the way to get the URLs from the file. module 2 imports the scraper
 
 
 def argparser():

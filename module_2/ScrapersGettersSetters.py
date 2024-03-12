@@ -8,20 +8,18 @@ from os.path import exists
 # each scraper would have an __init__ function so when an object is created it creates objects of each getter and writer from the imported module. There is no limit
 # on the amount of getters and writers, you just simply have to implement the functionality of what you want to get and what you want to write
 
-# This module fulfills the Liskov Substitution principle; the superclass has two defined functions: an init to declare necessary getter and writer objects, and a
-# scrape() to scrape the document using the getters and the writers. The subclass demonstrates the exact same behavior as the superclass.
-# This module also fulfills the single responsibility principle; each scraper has one functionality: to scrape, using the getters and writers created for that scraper;
+# This module fulfills the single responsibility principle; each scraper has one functionality: to scrape, using the getters and writers created for that scraper;
 # the class should only have one reason to change: to add/remove functionality of the scraper.
 
 # The InfoGetters and InfoWriters also follow these exact principles, allowing for easy implementation of different data grabbers.
 # This allows for easy restructing of scrapers to change in accordance to which data you want to grab from the article. It also allows for different scrapers to have
 # different getters/setters without affecting old ones.
 
-# Using both of these SOLID principles allows for very simple and streamlined implementation of new functionality. 
-# using Liskov allows for multiple scrapers to exist with a superclass dictating that they all function similarly, and using single responsibility allows
-# for these scraper functions to focus on handling errors and calling each getter and writer, allowing for easy implementation of new getters and writers allowing for
-# more information to be scraped without needing to remove any pre-existing functionality if it is ever wanted or needed. 
-# These principles allow for great amounts of freedom when designing the output of a scraper.
+# Using this SOLID principle allows for very simple and streamlined implementation of new functionality. 
+# using single responsibility allows for these scraper functions to focus on handling errors and calling each getter and writer, 
+# allowing for easy implementation of new getters and writers.
+# This allows more information to be scraped without needing to remove any pre-existing functionality if it is ever wanted or needed. 
+# This principle allow for great amounts of freedom when designing the output of a scraper.
 
 # each scraper's scrape() should only take a raw URL to scrape. scrape() returns nothing, but is responsible for making sure each file is output properly
 # each info getter expects the soup (the beautifulsoup parsed html)
@@ -164,11 +162,14 @@ class WriteArticle(InfoWriters):
         # loops through newly created array, makes it pretty, encoding it into ascii and decoding it back to a string in order to remove unicode
         # does not return anything and instead writes each part of the array to the file
         count = 0
-        for partsOfArticle in information:
-        # "count" is present in order to not print out the copyright at the beginning 
-            if count == 1:        
-                encodeParts = partsOfArticle.text.encode('ascii', 'ignore')
-                # this gets rid of the "question marks" by encoding the file in ascii characters
-                fileToOutput.write((encodeParts.decode()) + "\n")
-                # writes the article data to the file and decodes it in order to make it a string
-            count = 1
+        try:
+            for partsOfArticle in information:
+            # "count" is present in order to not print out the copyright at the beginning 
+                if count == 1:        
+                    encodeParts = partsOfArticle.text.encode('ascii', 'ignore')
+                    # this gets rid of the "question marks" by encoding the file in ascii characters
+                    fileToOutput.write((encodeParts.decode()) + "\n")
+                    # writes the article data to the file and decodes it in order to make it a string
+                count = 1
+        except:
+            print(f"Failed to write body information for article {currentArticle}")
