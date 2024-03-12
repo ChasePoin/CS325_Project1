@@ -18,8 +18,9 @@ from os.path import exists
 # using Liskov allows for multiple scrapers to exist with a superclass dictating that they all function similarly, and using single responsibility allows
 # for these scraper functions to focus on handling errors and calling each getter and writer, allowing for easy implementation of new getters and writers allowing for
 # more information to be scraped without needing to remove any pre-existing functionality if it is ever wanted or needed. 
+# These principles allow for great amounts of freedom when designing the output of a scraper.
 
-# each scraper's scrape() should only take the file containing the raw URLs to scrape. scrape() returns nothing, but is responsible for making sure each file is output properly
+# each scraper's scrape() should only take a raw URL to scrape. scrape() returns nothing, but is responsible for making sure each file is output properly
 
 class Scrapers(ABC):
     def __init__(self):
@@ -79,6 +80,8 @@ class APscraper(Scrapers):
                 self.articleWriter.writeInfo(body, rawFileToOutput, articleNumber)
             except:
                 print(f"Failed to write Article data for RAW, article {articleNumber}")
+        else:
+            print(f"RAW Article {articleNumber} file already exists.")
 
         # PROCESSED:
         if (not exists("./Data/processed/" + fileName)):
@@ -104,4 +107,4 @@ class APscraper(Scrapers):
             # increment for next file name
             fileToOutput.close()
         else:
-            print(f"Article {articleNumber} file already exists.")
+            print(f"PROCESSED Article {articleNumber} file already exists.")

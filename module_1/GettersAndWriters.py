@@ -13,7 +13,7 @@ from os.path import exists
 
 # Using both of these principles allows for streamlined implementation of new getters and writers for a specific scraper's needs by just adding new classes based on the superclasses.
 
-# each getter expects the soup (HTML put into BeautifulSoup() parser), which will output the formatted respective text to be written to the file
+# each getter expects something that it will need to get information out of; for the scraper related getters, this means the soup. for the URL related getters, this means the file.
 # each writer expects the sepcific information to be written to the file, the OPENED file's name for writing, and the currentArticle for error reporting
 # the writers return nothing but are responsible for writing information to files
 
