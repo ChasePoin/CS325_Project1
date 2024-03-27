@@ -7,21 +7,11 @@ import requests
 # each scraper would have an __init__ function so when an object is created it creates objects of each getter from the imported module. There is no limit
 # on the amount of getters and writers, you just simply have to implement the functionality of what you want to get and what you want to write
 
-# This module fulfills the single responsibility principle; each scraper has one functionality: to scrape, using the getters created for that scraper;
-# the class should only have one reason to change: to add/remove functionality of the scraper.
-
-# The InfoGetters and InfoWriters also follow these exact principles, allowing for easy implementation of different data grabbers.
-# This allows for easy restructing of scrapers to change in accordance to which data you want to grab from the article. It also allows for different scrapers to have
-# different getters without affecting old ones.
-
-# Using this SOLID principle allows for very simple and streamlined implementation of new functionality. 
-# using single responsibility allows for these scraper functions to focus on handling errors and calling each getter
-# allowing for easy implementation of new getters.
-# This allows more information to be scraped without needing to remove any pre-existing functionality if it is ever wanted or needed. 
-# This principle allow for great amounts of freedom when designing the output of a scraper.
-
 # each scraper's scrape() should only take a raw URL to scrape. scrape() returns nothing, but is responsible for making sure each file is output properly
 # each info getter expects the soup (the beautifulsoup parsed html)
+
+# In this version, the URLGrabber superclass and related subclass are moved to this module, as I felt they better suited this module than the other now. There is also now a WriteSummary() class to write the 
+# AI generated summary to file.
 
 class Scrapers(ABC):
     def __init__(self):
