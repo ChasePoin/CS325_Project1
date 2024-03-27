@@ -4,8 +4,10 @@ import argparse as ap
 from os.path import exists
 import textwrap
 
-### IMPORTANT: Make sure you are in the same current working directory as the folder containing the URLs and all of the downloaded files/folders.
-## module 1 imports the way to get the URLs from the file. module 2 imports the scraper
+### IMPORTANT: Make sure you are in the same current working directory as the folder containing the URLs and all of the downloaded files/folders. #######
+## module 1 imports gemini related functionality. module 2 imports the scrapers, getters, writers ##
+# run the file by typing python run.py x   x is your file containing the URLs you want to scrape + return a summary of; there is an example txt file included.
+# if a RAW file is returned for your article but no processed file, there is potentially harmful content detected by the AI. There is an error testing line commented out in the sendAIprompt() function in GAI.py.
 
 
 def argparser():
