@@ -19,7 +19,7 @@ This branch also contains an updated version of the python environment used, as 
 ## API Key
 An extremely important "key" to this project is the necessity of an API key to use this program. The API key is an access token to access their API. It is relatively simply to do this.
 
-1. Go to https://ai.google.dev/tutorials/python_quickstart.
+1. Go to https://ai.google.dev/tutorials/python_quickstart. If you do not have a google account, create one now.
 
 2. Scroll to the "Setup your API key" section. Click on "Get an API key."
 
