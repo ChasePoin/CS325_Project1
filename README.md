@@ -44,7 +44,7 @@ This assumes you have an python environment management system such as conda (rec
 
 6. Take the URLs you want to scrape and either make a new text file and order the URLs as you want (look at news_urls.txt for formatting) or just replace the URLs in news_urls.txt with the ones you want to scrape.
 
-7. Make sure your terminal in VSC is in the folder with your text file. Also make sure none of the files were split up; functions.py, interface.py, and the text file containing your URLs must be present in the same folder.
+7. Make sure your terminal in VSC is in the folder with your text file. Also make sure none of the files were split up.
 
 8. Be sure to have read the above guide on how to setup your API Key. Type echo %GOOGLE_API_KEY% to make sure the key is configured properly. The key is CRUCIAL for this program to run properly.
 
