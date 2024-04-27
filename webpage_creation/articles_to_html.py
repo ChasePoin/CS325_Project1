@@ -31,7 +31,7 @@ def summaryToHTML(inputFile, html_file):
 
 
 def main():
-    summaryToHTML("combined_articles.txt", "all_articles.html")
+    summaryToHTML("input.txt", "all_articles.html")
 
 if __name__ == "__main__":
     main()
